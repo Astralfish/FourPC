@@ -1,0 +1,31 @@
+﻿@using FourPC.Core.Chessboard
+@using FourPC.Core.Chessboard.Cells
+@using OneOf
+
+@if (BoardState != null)
+{
+    <div class="chessboard">
+        @foreach (var row in BoardState.Cells2D)
+        {
+            <div class="chessboard-row">
+                @foreach (var cell in row)
+                {
+                    <div class="chessboard-cell @CellTypeToClass(cell)"></div>
+                }
+            </div>
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Board? BoardState { get; set; }
+
+    private string CellTypeToClass(CellType type) => type switch
+    {
+        CellType.Black => "black",
+        CellType.White => "white",
+        _ => "",
+    };
+}
+
