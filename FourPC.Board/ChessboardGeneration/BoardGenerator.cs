@@ -7,29 +7,41 @@ namespace FourPC.Core.BoardGeneration;
 
 public class BoardGenerator
 {
-    public Board GenerateInitial() => new Board(GenerateCells(), GeneratePieces(), GeneratePlayers());
+    public static Board GenerateInitial() => new Board(GenerateCells().ToList(), GeneratePieces(), GeneratePlayers());
 
-    internal static IEnumerable<CellType> GenerateCells() =>
-        Enumerable.Range(CellId.Min, CellId.Max)
-            .Select(n => new CellId(n))
-            .Select(CellIdToType);
+    internal static IEnumerable<CellType> GenerateCells()
+    {
+        for (int y = 0; y <= CellPosition.Max; y ++)
+        {
 
-    internal static IEnumerable<Piece> GeneratePieces() => StartingArrangement;
+            for (int x = 0; x <= CellPosition.Max; x++)
+            {
+                yield return CellPositionToType(new CellPosition(x, y));
+            }
+        }
+    }
 
-    internal static IEnumerable<Player> GeneratePlayers() => StartingPlayers;
+    internal static IReadOnlyCollection<Piece> GeneratePieces() => StartingArrangement.AsReadOnly();
 
-    private static CellType CellIdToType(CellId cellId) => (CellType)(cellId.Value % 2);
+    internal static IReadOnlyCollection<Player> GeneratePlayers() => StartingPlayers.AsReadOnly();
+
+    private static CellType CellPositionToType(CellPosition cellId) => cellId switch
+    {
+        { X: (>= 0 and <= 2) or (>= 11 and <= 13), Y: (>= 0 and <= 2) or (>= 11 and <= 13) } => CellType.Nothing,
+        { X: int x, Y: int y } when ((x ^ y) & 1) == 1 => CellType.White,
+        _ => CellType.Black,
+    };
 
     private static List<Piece> StartingArrangement = new List<Piece>
     {
-        new Piece(PieceType.Rook, PlayerNumber.Player1, new CellId(0)),
-        new Piece(PieceType.Knight, PlayerNumber.Player1, new CellId(1)),
-        new Piece(PieceType.Bishop, PlayerNumber.Player1, new CellId(2)),
-        new Piece(PieceType.King, PlayerNumber.Player1, new CellId(3)),
-        new Piece(PieceType.Queen, PlayerNumber.Player1, new CellId(4)),
-        new Piece(PieceType.Bishop, PlayerNumber.Player1, new CellId(5)),
-        new Piece(PieceType.Knight, PlayerNumber.Player1, new CellId(6)),
-        new Piece(PieceType.Rook, PlayerNumber.Player1, new CellId(7)),
+        new Piece(PieceType.Rook, PlayerNumber.Player1, new CellPosition(3, 0)),
+        new Piece(PieceType.Knight, PlayerNumber.Player1, new CellPosition(4, 0)),
+        new Piece(PieceType.Bishop, PlayerNumber.Player1, new CellPosition(5, 0)),
+        new Piece(PieceType.King, PlayerNumber.Player1, new CellPosition(6, 0)),
+        new Piece(PieceType.Queen, PlayerNumber.Player1, new CellPosition(7, 0)),
+        new Piece(PieceType.Bishop, PlayerNumber.Player1, new CellPosition(8, 0)),
+        new Piece(PieceType.Knight, PlayerNumber.Player1, new CellPosition(9, 0)),
+        new Piece(PieceType.Rook, PlayerNumber.Player1, new CellPosition(10, 0)),
         //TODO: rest of the pieces
     };
 
