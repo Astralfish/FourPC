@@ -1,16 +1,49 @@
-﻿@using FourPC.Core.Chessboard
+﻿@using FourPC.Client.Components.Chessboard.Pieces
+@using FourPC.Core.Chessboard
 @using FourPC.Core.Chessboard.Cells
+@using FourPC.Core.Chessboard.Players
 @using OneOf
+@using System.Drawing
 
 @if (BoardState != null)
 {
-    <div class="chessboard">
+    <div class="chessboard" style="width: @(Size)px; height: @(Size)px">
+        @* TODO: this can just be an image *@
         @foreach (var row in BoardState.Cells2D)
         {
             <div class="chessboard-row">
                 @foreach (var cell in row)
                 {
                     <div class="chessboard-cell @CellTypeToClass(cell)"></div>
+                }
+            </div>
+        }
+        @foreach (var piece in BoardState.Pieces)
+        {
+            <div class="piece" style="transform: translate(@(piece.Position.X * 100)%, @(piece.Position.Y * 100)%)">
+                @if(piece.PieceType == Core.Chessboard.Pieces.PieceType.Pawn)
+                {
+                    <Pawn Color="PlayerToColor(piece.Owner)"></Pawn>
+                }
+                else if (piece.PieceType == Core.Chessboard.Pieces.PieceType.Rook)
+                {
+                    <Rook Color="PlayerToColor(piece.Owner)"></Rook>
+                }
+                else if (piece.PieceType == Core.Chessboard.Pieces.PieceType.Knight)
+                {
+                    <Knight Color="PlayerToColor(piece.Owner)"></Knight>
+                }
+                else if (piece.PieceType == Core.Chessboard.Pieces.PieceType.Bishop)
+                {
+                    <Bishop Color="PlayerToColor(piece.Owner)"></Bishop>
+                }
+                else if (piece.PieceType == Core.Chessboard.Pieces.PieceType.King)
+                {
+                    <King Color="PlayerToColor(piece.Owner)"></King>
+                }
+                else if (piece.PieceType == Core.Chessboard.Pieces.PieceType.Queen)
+                {
+                    <Queen Color="PlayerToColor(piece.Owner)"></Queen>
                 }
             </div>
         }
@@ -21,11 +54,31 @@
     [Parameter]
     public Board? BoardState { get; set; }
 
+    [Parameter]
+    public double Size { get; set; } = 400;
+
+    private double cellSize;
+
+    protected override void OnInitialized()
+    {
+        cellSize = Size / Board.Size;
+        base.OnInitialized();
+    }
+
     private string CellTypeToClass(CellType type) => type switch
     {
         CellType.Black => "black",
         CellType.White => "white",
         _ => "",
+    };
+
+    private Color PlayerToColor(PlayerNumber playerNumber) => playerNumber switch
+    {
+        PlayerNumber.Player1 => Color.Yellow,
+        PlayerNumber.Player2 => Color.Green,
+        PlayerNumber.Player3 => Color.Red,
+        PlayerNumber.Player4 => Color.Blue,
+        _ => Color.HotPink,
     };
 }
 

@@ -6,6 +6,8 @@ namespace FourPC.Core.Chessboard;
 
 public record Board
 {
+    public const int Size = 14;
+
     public Board(IReadOnlyCollection<CellType> cells, IReadOnlyCollection<Piece> pieces, IReadOnlyCollection<Player> players)
     {
         Cells = cells;
@@ -19,6 +21,6 @@ public record Board
 
     public IReadOnlyCollection<Player> Players { get; private init; }
 
-    public IEnumerable<IEnumerable<CellType>> Cells2D => Cells.Chunk(14);
+    public IEnumerable<IEnumerable<CellType>> Cells2D => Cells.Chunk(Size);
 
 }

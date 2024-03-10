@@ -1,8 +1,7 @@
 ﻿.chessboard {
     display: flex;
     flex-direction: column;
-    width: 400px;
-    height: 400px;
+    position: relative;
 }
 
 .chessboard-row {
@@ -22,3 +21,18 @@
 .black {
     background-color: saddlebrown;
 }
+
+.piece {
+    width: 7.142857142%;
+    height: 7.142857142%;
+    position: absolute;
+}
+
+    .piece.p {
+        background-image: url("/images/pieces/pawn.png");
+    }
+
+    .piece.yellow {
+        background-color: rgba(255, 216, 0, 0.5);
+        background-blend-mode: multiply;
+    }
