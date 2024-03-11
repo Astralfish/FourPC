@@ -74,10 +74,10 @@
 
     private Color PlayerToColor(PlayerNumber playerNumber) => playerNumber switch
     {
-        PlayerNumber.Player1 => Color.Yellow,
-        PlayerNumber.Player2 => Color.Green,
-        PlayerNumber.Player3 => Color.Red,
-        PlayerNumber.Player4 => Color.Blue,
+        PlayerNumber.PlayerBottom => Color.Yellow,
+        PlayerNumber.PlayerLeft => Color.Green,
+        PlayerNumber.PlayerTop => Color.Red,
+        PlayerNumber.PlayerRight => Color.Blue,
         _ => Color.HotPink,
     };
 }
