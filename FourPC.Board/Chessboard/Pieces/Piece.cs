@@ -1,12 +1,11 @@
-﻿using FourPC.Core.Board.Pieces;
-using FourPC.Core.Chessboard.Cells;
+﻿using FourPC.Core.Chessboard.Cells;
 using FourPC.Core.Chessboard.Players;
 
 namespace FourPC.Core.Chessboard.Pieces;
 
 public record Piece
 {
-    public Piece(PieceType pieceType, PlayerNumber owner, CellId position)
+    public Piece(PieceType pieceType, PlayerNumber owner, CellPosition position)
     {
         PieceType = pieceType;
         Owner = owner;
@@ -17,5 +16,5 @@ public record Piece
 
     public PlayerNumber Owner { get; private init; }
 
-    public CellId Position { get; private init; }
+    public CellPosition Position { get; private init; }
 }

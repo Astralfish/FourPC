@@ -1,7 +1,18 @@
 ﻿@page "/"
+@using FourPC.Client.Components.Chessboard
+@using FourPC.Core.BoardGeneration
+@using FourPC.Core.Chessboard
 
-<PageTitle>Home</PageTitle>
+<div>
+    <Chessboard BoardState="board"></Chessboard>
+</div>
 
-<h1>Hello, world!</h1>
+@code {
+    private Board? board;
 
-Welcome to your new app.
+    protected override void OnInitialized()
+    {
+        board = BoardGenerator.GenerateInitial();
+        base.OnInitialized();
+    }
+}

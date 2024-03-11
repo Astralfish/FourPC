@@ -4,4 +4,5 @@ public enum CellType
 {
     White,
     Black,
+    Nothing,
 }

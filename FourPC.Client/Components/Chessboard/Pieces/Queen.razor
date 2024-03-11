@@ -1,0 +1,23 @@
+﻿@using System.Drawing
+@using FourPC.Client.Extensions
+
+@*Based on: Public Domain, https://commons.wikimedia.org/w/index.php?curid=6692768*@
+<svg viewBox="0, 0, 504, 504">
+    <path d="M 48,132 L 64,302 126,395 103,442 C 140,470 319,473 400,442 L 377,395 439,302 455,132 377,279 L 361,93 291,271 251,77 212,271 142,93 126,279 L 48,132 z"
+          style="fill:@(this.Color.ToHex());stroke:#000000;stroke-width:16;" />
+    <circle cx="40" cy="110" r="26" style="fill:@(this.Color.ToHex());stroke:#000000;stroke-width:16;" />
+    <circle cx="138" cy="73" r="26" style="fill:@(this.Color.ToHex());stroke:#000000;stroke-width:16;" />
+    <circle cx="250" cy="52" r="26" style="fill:@(this.Color.ToHex());stroke:#000000;stroke-width:16;" />
+    <circle cx="362" cy="72" r="26" style="fill:@(this.Color.ToHex());stroke:#000000;stroke-width:16;" />
+    <circle cx="460" cy="109" r="26" style="fill:@(this.Color.ToHex());stroke:#000000;stroke-width:16;" />
+    <path d="M 103,442 C 202,400 294,397 392,442" style="fill:@(this.Color.ToHex());stroke:#000000;stroke-width:16;" />
+    <path d="M 126,395 C 219,365 274,359 377,395" style="fill:@(this.Color.ToHex());stroke:#000000;stroke-width:16;" />
+    <path d="M 95,349 C 194,307 303,304 401,349" style="fill:@(this.Color.ToHex());stroke:#000000;stroke-width:16;" />
+    <path d="M 72,302 L 94,283 C 116,292 154,280 169,265 189,278 221,284 252,252 283,285 309,279 338,268 363,288 388,291 414,284 L 433,305"
+          style="fill:none;stroke:#000000;stroke-width:16;" />
+</svg>
+
+@code {
+    [Parameter]
+    public Color Color { get; set; }
+}
