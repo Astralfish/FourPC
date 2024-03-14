@@ -23,4 +23,5 @@ public record Board
 
     public IEnumerable<IEnumerable<CellType>> Cells2D => Cells.Chunk(Size);
 
+    public Piece? PieceAt(CellPosition position) => Pieces.FirstOrDefault(p => p.Position == position);
 }

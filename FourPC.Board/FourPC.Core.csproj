@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="MoveGeneration\" />
     <Folder Include="MoveValidation\" />
   </ItemGroup>
 

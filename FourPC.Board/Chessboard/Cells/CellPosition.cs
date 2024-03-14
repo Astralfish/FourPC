@@ -18,6 +18,10 @@ public class CellPosition
         Y = n / (Max + 1);
     }
 
+    public static CellPosition operator+(CellPosition lhs, CellPosition rhs) => new CellPosition(lhs.X + rhs.X, lhs.Y + rhs.Y);
+
+    public bool IsValid => X >= 0 && X <= Max && Y > 0 && Y < Max;
+
     public static int Min = 0;
     public static int Max = 13;
 }
