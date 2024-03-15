@@ -13,21 +13,32 @@ public class RookMoveGenerator
 {
     public IEnumerable<Move> Generate(Board board, Piece piece)
     {
-
+        return CastRay(board, piece, new CellPosition(0, 1))
+            .Concat(CastRay(board, piece, new CellPosition(0, -1)))
+            .Concat(CastRay(board, piece, new CellPosition(1, 0)))
+            .Concat(CastRay(board, piece, new CellPosition(-1, 0)));
     }
 
-    public HashSet<CellPosition> MovementPattern(CellPosition start)
+    //TODO: method the same for bishops and queen, refactor to separate class
+    //TODO: tests
+    private IEnumerable<Move> CastRay(Board board, Piece piece, CellPosition offset)
     {
-        var result = new HashSet<CellPosition>();
-
-    }
-
-    private IEnumerable<CellPosition> ShootRay(Board board, CellPosition start, CellPosition offset)
-    {
-        var currentPosition = start + offset;
-        while (currentPosition.IsValid)
+        var targetPosition = piece.Position + offset;
+        while (targetPosition.IsValid)
         {
-            if (board)
+            var targetPiece = board.PieceAt(targetPosition);
+            if (targetPiece == null)
+            {
+                yield return new Move(piece.Position, targetPosition, false);
+            }
+            else if (targetPiece.Owner != piece.Owner)
+            {
+                yield return new Move(piece.Position, targetPosition, true);
+            }
+            else
+            {
+                yield break;
+            }
         }
     }
 }
