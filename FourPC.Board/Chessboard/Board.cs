@@ -15,6 +15,7 @@ public record Board
         Players = players;
     }
 
+    //TODO: cells are needed only for drawing, it should not be a part of board state
     public IReadOnlyCollection<CellType> Cells { get; private init; }
 
     public IReadOnlyCollection<Piece> Pieces { get; private init; }

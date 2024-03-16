@@ -39,6 +39,7 @@ public class RookMoveGenerator
             {
                 yield break;
             }
+            targetPosition = targetPosition + offset;
         }
     }
 }

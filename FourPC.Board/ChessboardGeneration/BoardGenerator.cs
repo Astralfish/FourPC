@@ -9,7 +9,7 @@ public class BoardGenerator
 {
     public static Board GenerateInitial() => new Board(GenerateCells().ToList(), GeneratePieces(), GeneratePlayers());
 
-    internal static IEnumerable<CellType> GenerateCells()
+    public static IEnumerable<CellType> GenerateCells()
     {
         for (int y = 0; y <= CellPosition.Max; y ++)
         {
@@ -21,9 +21,9 @@ public class BoardGenerator
         }
     }
 
-    internal static IReadOnlyCollection<Piece> GeneratePieces() => StartingArrangement.AsReadOnly();
+    public static IReadOnlyCollection<Piece> GeneratePieces() => StartingArrangement.AsReadOnly();
 
-    internal static IReadOnlyCollection<Player> GeneratePlayers() => StartingPlayers.AsReadOnly();
+    public static IReadOnlyCollection<Player> GeneratePlayers() => StartingPlayers.AsReadOnly();
 
     private static CellType CellPositionToType(CellPosition cellId) => cellId switch
     {
