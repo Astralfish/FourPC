@@ -51,4 +51,39 @@ public class RookMoveGenerationTests
         };
         result.Should().BeEquivalentTo(expected, o => o.WithoutStrictOrdering());
     }
+
+    [Fact]
+    public void RookShouldCaptureHorizontallyOrVertically()
+    {
+        var cells = BoardGenerator.GenerateCells();
+        var players = BoardGenerator.GeneratePlayers();
+        var rook = new Piece(PieceType.Rook, PlayerNumber.PlayerBottom, new CellPosition(7, 1));
+        var pieces = new List<Piece>()
+        {
+            rook,
+            new Piece(PieceType.Pawn, PlayerNumber.PlayerLeft, new CellPosition(7, 0)),
+            new Piece(PieceType.Pawn, PlayerNumber.PlayerRight, new CellPosition(6, 1)),
+            new Piece(PieceType.Knight, PlayerNumber.PlayerTop, new CellPosition(10, 1)),
+            new Piece(PieceType.Bishop, PlayerNumber.PlayerTop, new CellPosition(7, 6)),
+        };
+        var board = new Board(cells.ToList(), pieces, players);
+
+        var rookMoveGenerator = new RookMoveGenerator();
+        var result = rookMoveGenerator.Generate(board, rook).ToList();
+        var expected = new List<Move>()
+        {
+            new Move(new CellPosition(7, 1), new CellPosition(7, 2), false),
+            new Move(new CellPosition(7, 1), new CellPosition(7, 3), false),
+            new Move(new CellPosition(7, 1), new CellPosition(7, 4), false),
+            new Move(new CellPosition(7, 1), new CellPosition(7, 5), false),
+            new Move(new CellPosition(7, 1), new CellPosition(7, 6), true),
+            new Move(new CellPosition(7, 1), new CellPosition(7, 0), true),
+
+            new Move(new CellPosition(7, 1), new CellPosition(8, 1), false),
+            new Move(new CellPosition(7, 1), new CellPosition(9, 1), false),
+            new Move(new CellPosition(7, 1), new CellPosition(10, 1), true),
+            new Move(new CellPosition(7, 1), new CellPosition(6, 1), true),
+        };
+        result.Should().BeEquivalentTo(expected, o => o.WithoutStrictOrdering());
+    }
 }

@@ -1,6 +1,6 @@
 ﻿namespace FourPC.Core.Chessboard.Cells;
 
-public class CellPosition
+public record CellPosition
 {
     public int X { get; private init; }
 

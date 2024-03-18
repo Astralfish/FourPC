@@ -34,6 +34,7 @@ public class RookMoveGenerator
             else if (targetPiece.Owner != piece.Owner)
             {
                 yield return new Move(piece.Position, targetPosition, true);
+                yield break;
             }
             else
             {
