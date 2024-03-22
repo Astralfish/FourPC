@@ -6,7 +6,7 @@ namespace FourPC.Core.MoveGeneration;
 
 public class RookMoveGenerator
 {
-    public IEnumerable<Move> Generate(Board board, Piece piece)
+    public static IEnumerable<Move> Generate(Board board, Piece piece)
     {
         return RayCaster.CastRay(board, piece, new CellPosition(0, 1))
             .Concat(RayCaster.CastRay(board, piece, new CellPosition(0, -1)))

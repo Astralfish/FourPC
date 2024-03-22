@@ -18,8 +18,7 @@ public class BishopMoveGenerationTests
         var bishop = new Piece(PieceType.Bishop, PlayerNumber.PlayerBottom, new CellPosition(7, 1));
         var board = new Board(cells.ToList(), new List<Piece>() { bishop }, players);
 
-        var bishopMoveGenerator = new BishopMoveGenerator();
-        var result = bishopMoveGenerator.Generate(board, bishop).ToList();
+        var result = BishopMoveGenerator.Generate(board, bishop).ToList();
         var expected = new List<Move>()
         {
             new Move(new CellPosition(7, 1), new CellPosition(6, 0), false),
@@ -61,8 +60,7 @@ public class BishopMoveGenerationTests
         };
         var board = new Board(cells.ToList(), pieces, players);
 
-        var bishopMoveGenerator = new BishopMoveGenerator();
-        var result = bishopMoveGenerator.Generate(board, bishop).ToList();
+        var result = BishopMoveGenerator.Generate(board, bishop).ToList();
         var expected = new List<Move>()
         {
             new Move(new CellPosition(7, 1), new CellPosition(6, 0), true),

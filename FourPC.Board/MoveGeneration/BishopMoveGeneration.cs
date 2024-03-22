@@ -6,7 +6,7 @@ namespace FourPC.Core.MoveGeneration;
 
 public class BishopMoveGenerator
 {
-    public IEnumerable<Move> Generate(Board board, Piece piece)
+    public static IEnumerable<Move> Generate(Board board, Piece piece)
     {
         return RayCaster.CastRay(board, piece, new CellPosition(1, 1))
             .Concat(RayCaster.CastRay(board, piece, new CellPosition(1, -1)))
