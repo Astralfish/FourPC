@@ -7,7 +7,6 @@ public class QueenMoveGeneration
 {
     public static IEnumerable<Move> Generate(Board board, Piece piece)
     {
-        return RookMoveGenerator.Generate(board, piece)
-            .Concat(BishopMoveGenerator.Generate(board, piece));
+        return RayCaster.CastAllDirections(board, piece);
     }
 }
