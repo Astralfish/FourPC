@@ -3,7 +3,7 @@ using FourPC.Core.Chessboard.Pieces;
 
 namespace FourPC.Core.MoveGeneration;
 
-public class KingMoveGeneration
+public class KingMoveGenerator
 {
     public static IEnumerable<Move> Generate(Board board, Piece piece)
     {
