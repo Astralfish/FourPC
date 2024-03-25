@@ -51,4 +51,42 @@ internal class RayCaster
         return CastAlongAxes(board, piece, length)
             .Concat(CastDiagonal(board, piece, length));
     }
+
+    public static IEnumerable<Move> CastRay(Board board, Piece piece, CellPosition offset)
+    {
+        var targetPosition = piece.Position + offset;
+        var currentLength = 1;
+        while (board.IsValid(targetPosition))
+        {
+            yield return new Move(piece.Position, targetPosition, false);
+            targetPosition = targetPosition + offset;
+            currentLength++;
+        }
+    }
+
+    public static IEnumerable<Move> MapIf(IEnumerable<Move> ray, bool condition, Func<IEnumerable<Move>, IEnumerable<Move>> map) 
+    {
+        if (condition)
+        {
+            return map(ray);
+        }
+        else
+        {
+            return ray;
+        }
+    }
+
+    public static IEnumerable<Move> LimitLength(IEnumerable<Move> ray, int length)
+    {
+        return ray.Take(length);
+    }
+
+    public static IEnumerable<Move> Capture(IEnumerable<Move> ray, Board board, Func<(Piece own, Piece other), bool> capturePredicate)
+    {
+        foreach (var move in ray)
+        {
+            var targetPiece = board.PieceAt(move.To);
+            if (capturePredicate((move.)))
+        }
+    }
 }

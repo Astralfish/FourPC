@@ -7,6 +7,8 @@ namespace FourPC.Core.Chessboard;
 public record Board
 {
     public const int Size = 14;
+    public int MaxPosition => Size - 1;
+    public int MinPosition => 0;
 
     public Board(IReadOnlyCollection<CellType> cells, IReadOnlyCollection<Piece> pieces, IReadOnlyCollection<Player> players)
     {
@@ -25,4 +27,17 @@ public record Board
     public IEnumerable<IEnumerable<CellType>> Cells2D => Cells.Chunk(Size);
 
     public Piece? PieceAt(CellPosition position) => Pieces.FirstOrDefault(p => p.Position == position);
+
+    public bool IsStartingPosition(Piece piece)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool CanPromoteAtPosition(Piece piece, CellPosition position)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool IsValid(CellPosition position) => (position.X >= 3 && position.X <= MaxPosition - 3 && position.Y >= MinPosition && position.Y <= MaxPosition) ||
+        (position.X >= MinPosition && position.X <= MaxPosition && position.Y >= 3 && position.Y <= MaxPosition - 3);
 }

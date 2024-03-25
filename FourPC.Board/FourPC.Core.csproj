@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="OneOf" Version="3.0.263" />
+    <PackageReference Include="Optional" Version="4.0.0" />
   </ItemGroup>
 
 </Project>
