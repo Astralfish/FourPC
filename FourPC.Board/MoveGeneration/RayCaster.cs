@@ -12,13 +12,13 @@ internal class RayCaster
         while (targetPosition.IsValid && currentLength <= length)
         {
             var targetPiece = board.PieceAt(targetPosition);
-            if (targetPiece == null)
+            if (!targetPiece.HasValue)
             {
-                yield return new Move(piece.Position, targetPosition, false);
+                yield return new Move(piece, targetPosition, false);
             }
-            else if (targetPiece.Owner != piece.Owner)
+            else if (targetPiece.ValueOr(piece).Owner != piece.Owner)
             {
-                yield return new Move(piece.Position, targetPosition, true);
+                yield return new Move(piece, targetPosition, true);
                 yield break;
             }
             else
@@ -58,7 +58,7 @@ internal class RayCaster
         var currentLength = 1;
         while (board.IsValid(targetPosition))
         {
-            yield return new Move(piece.Position, targetPosition, false);
+            yield return new Move(piece, targetPosition, false);
             targetPosition = targetPosition + offset;
             currentLength++;
         }
@@ -86,7 +86,22 @@ internal class RayCaster
         foreach (var move in ray)
         {
             var targetPiece = board.PieceAt(move.To);
-            if (capturePredicate((move.)))
+
+            yield return targetPiece.Match(
+                some: p => new Move(move.Piece, move.To, capturePredicate((move.Piece, p))),
+                none: () => move);
+        }
+    }
+
+    public static IEnumerable<Move> StopAtCapture(IEnumerable<Move> ray)
+    {
+        foreach (var move in ray)
+        {
+            yield return move;
+            if (move.IsCapture)
+            {
+                yield break;
+            }
         }
     }
 }

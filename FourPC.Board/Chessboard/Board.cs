@@ -1,6 +1,8 @@
 ﻿using FourPC.Core.Chessboard.Cells;
 using FourPC.Core.Chessboard.Pieces;
 using FourPC.Core.Chessboard.Players;
+using Optional;
+using Optional.Collections;
 
 namespace FourPC.Core.Chessboard;
 
@@ -26,7 +28,7 @@ public record Board
 
     public IEnumerable<IEnumerable<CellType>> Cells2D => Cells.Chunk(Size);
 
-    public Piece? PieceAt(CellPosition position) => Pieces.FirstOrDefault(p => p.Position == position);
+    public Option<Piece> PieceAt(CellPosition position) => Pieces.FirstOrNone(p => p.Position == position);
 
     public bool IsStartingPosition(Piece piece)
     {
