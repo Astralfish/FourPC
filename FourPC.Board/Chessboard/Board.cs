@@ -40,6 +40,11 @@ public record Board
         throw new NotImplementedException();
     }
 
+    public CellPosition GetForwardDirection(Piece piece)
+    {
+        throw new NotImplementedException();
+    }
+
     public bool IsValid(CellPosition position) => (position.X >= 3 && position.X <= MaxPosition - 3 && position.Y >= MinPosition && position.Y <= MaxPosition) ||
         (position.X >= MinPosition && position.X <= MaxPosition && position.Y >= 3 && position.Y <= MaxPosition - 3);
 }

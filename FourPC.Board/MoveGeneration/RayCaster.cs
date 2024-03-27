@@ -5,7 +5,7 @@ using FourPC.Core.Chessboard;
 namespace FourPC.Core.MoveGeneration;
 internal class RayCaster
 {
-    public static IEnumerable<Move> CastRay(Board board, Piece piece, CellPosition offset, int length = int.MaxValue)
+    public static IEnumerable<Move> CastRay(Board board, Piece piece, CellPosition offset, int length = int.MaxValue, bool canCapture = true)
     {
         var targetPosition = piece.Position + offset;
         var currentLength = 1;
@@ -16,7 +16,7 @@ internal class RayCaster
             {
                 yield return new Move(piece, targetPosition, false);
             }
-            else if (targetPiece.ValueOr(piece).Owner != piece.Owner)
+            else if (targetPiece.ValueOr(piece).Owner != piece.Owner && canCapture)
             {
                 yield return new Move(piece, targetPosition, true);
                 yield break;
